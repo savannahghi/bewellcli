@@ -324,6 +324,9 @@ type UserProfile struct {
 
 	PushTokens []string `json:"pushTokens,omitempty" firestore:"pushTokens"`
 
+	// Role of the user in the system. Valid for Suppliers, SIL employees and Agents
+	Role RoleType `json:"role,omitempty" firestore:"role"`
+
 	// what the user is allowed to do. Only valid for admins
 	Permissions []PermissionType `json:"permissions,omitempty" firestore:"permissions"`
 
