@@ -128,4 +128,9 @@ const (
 	// This may happen when the KYC has already been subnmitted
 	// Its error code is 25
 	KYCAlreadySubmitted
+
+	// RoleNotValid means that the user role does not match the role required
+	// to perform the current operation that the user is trying to perform.
+	// Its error code is 26
+	RoleNotValid
 )

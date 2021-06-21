@@ -351,6 +351,9 @@ type UserProfile struct {
 
 	// this is the user's work geo location
 	WorkAddress *Address `json:"workAddress,omitempty" firestore:"workAddress"`
+
+	// this is the profile ID of the logged in user creating this user.
+	CreatedByID *string `json:"cratedByID" firestore:"createdByID"`
 }
 
 // UserInfo is a collection of standard profile information for a user.
