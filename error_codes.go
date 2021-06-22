@@ -133,4 +133,164 @@ const (
 	// to perform the current operation that the user is trying to perform.
 	// Its error code is 26
 	RoleNotValid
+
+	//InsuranceDetailsNotCoverLinked means that the user's insurance details are not
+	//coverLinked
+	//Its error code is 27
+	InsuranceDetailsNotCoverLinked
+
+	//CoverAlreadyExists means that the user has tried to add an already existing cover
+	//Its error code is 28
+	CoverAlreadyExists
+
+	//UserNotAuthorizedToAccessThisResource means that the subject's
+	//email has been found to not have access to the specified resource
+	//Its error code is 29
+	UserNotAuthorizedToAccessThisResource
+
+	//NilEligibilityMember means that the eligibility lookup
+	//done on the Slade360 EDI returns a nil
+	//Its error code is 30
+	NilEligibilityMember
+
+	//MinorMember means that
+	//a minor has tried to add their own cover
+	//Its error code is 31
+	MinorMember
+
+	// NilPayerDetails means that
+	//the payer details have been found to be nil
+	//Its error code is 32
+	NilPayerDetails
+
+	// FailedToLookUpEligibility means that
+	//there is a failed eligilibility lookup on the connected Slade 360EDI
+	//This lookup also includes dependants and allowed providers in the response payload
+	//Its error code is 33
+	FailedToLookUpEligibility
+
+	//UnlinkedCover means that
+	//a subject's cover details have been found to not be linked
+	//Its error code is 34
+	UnlinkedCover
+
+	//NoBeneficiaryWithMemberNumber means that
+	//no beneficiaryId is found under the given member number
+	//Its error code is 35
+	NoBeneficiaryWithMemberNumber
+
+	//FailedToFetchDependants means that
+	//the dependants of a particular principal cannot be retrieved
+	//Its error code is 36
+	FailedToFetchDependants
+
+	//InvalidCover means that
+	//the eligibilityStatus does not equal a valid cover
+	//Its error code is 37
+	InvalidCover
+
+	//UnableToAddCover means that
+	//the cover has not been added
+	//Its error code is 38
+	UnableToAddCover
+
+	//NotARecognizedDocumentType means that
+	//the document used is not a recognized identification document
+	//Its error code is 39
+	NotARecognizedDocumentType
+
+	// FailedCreateMemberProfile means that
+	//when the request to create a new member profile fails
+	// Its error code is 40
+	FailedCreateMemberProfile
+
+	//FailedCreateMemberProfileNotificationPayload is the  error message displayed
+	//when creation of a member profile notification payload fails
+	// Its error code is 41
+	FailedCreateMemberProfileNotificationPayload
+
+	//UnableToFindUserBioData means that
+	//a subject's bio data cannot be found
+	//Its error code is 42
+	UnableToFindUserBioData
+
+	//UnableToSaveMemberProfileRequest means that
+	//saving a member's profile request has failed
+	//Its error code is 43
+	UnableToSaveMemberProfileRequest
+
+	//UnableToCheckIfUserIsAnAdmin means that
+	//checking to see if a user is an admin has failed
+	//Its error code is 44
+	UnableToCheckIfUserIsAnAdmin
+
+	//LoggedInUserIsNotAnAdmin means that
+	//the user currently logged in has been found to not be an admin
+	//Its error code is 45
+	LoggedInUserIsNotAnAdmin
+
+	//UnableToRetrieveMemberRequestNotifications means that
+	//retrieving member request notifications has failed
+	//Its error code is 46
+	UnableToRetrieveMemberRequestNotifications
+
+	//UnableToMapMemberRequestNotification means that
+	//mapping the member request notification doc to object has failed
+	//Its error code is 47
+	UnableToMapMemberRequestNotification
+
+	// UnableToRetrieveNotification means that
+	//retrieving a node from firestore fails with this ID
+	//Its error code is 48
+	UnableToRetrieveNotification
+
+	//WrongNodeType means that
+	//a programming error has been made and a notification payload was expected
+	//Its error code is 49
+	WrongNodeType
+
+	//NilNotificationPayloadNode means that
+	//a nil notification payload node is returned
+	//Its error code is 50
+	NilNotificationPayloadNode
+
+	//UnableToSaveNotification means that
+	//saving a notification after updating it to read has failed
+	//Its error code is 51
+	UnableToSaveNotification
+
+	//NoConfirmedPhoneNumbers means that
+	//a user's primary phone number is  nil
+	//Its error code is 52
+	NoConfirmedPhoneNumbers
+
+	//InvalidPhoneNumberFormat means that
+	//the phone number format is invalid
+	//Its error code is 53
+	InvalidPhoneNumberFormat
+
+	// UnableToSendText means that
+	//sending a text to the phone number in question has failed
+	//Its  error code is 54
+	UnableToSendText
+
+	//UnknownStateProvided means that
+	//an unknown state has been entered
+	//Its error code is 55
+	UnknownStateProvided
+
+	//UnableToFetchProviderList means that
+	//fetching a provider list has failed
+	//Its error code is 56
+	UnableToFetchProviderList
+
+	//ExpectedCardToBeTypeString means that
+	//the card is of another type apart from string
+	//Its error code is 57
+	ExpectedCardToBeTypeString
+
+	//HasSladeCard means that
+	//the type of HasSladeCard variable is of another type other than bool
+	//Its error code is 58
+	HasSladeCard
 )
