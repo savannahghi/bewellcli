@@ -355,7 +355,10 @@ type UserProfile struct {
 	WorkAddress *Address `json:"workAddress,omitempty" firestore:"workAddress"`
 
 	// this is the profile ID of the logged in user creating this user.
-	CreatedByID *string `json:"cratedByID" firestore:"createdByID"`
+	CreatedByID *string `json:"cratedByID,omitempty" firestore:"createdByID"`
+
+	// Timestamp indicating when the user was created
+	Created *time.Time `json:"created,omitempty" firestore:"created"`
 
 	// this is the version of the app that the user is currently using : CONSUMER
 	ConsumerAppVersion *string `json:"consumerAppVersion,omitempty" firestore:"consumerAppVersion"`
@@ -447,6 +450,7 @@ type AuthCredentialResponse struct {
 	IsAdmin       bool    `json:"is_admin"`
 	IsAnonymous   bool    `json:"is_anonymous"`
 	CanExperiment bool    `json:"can_experiment"`
+	ChangePIN     bool    `json:"change_pin"`
 }
 
 // Customer used to create a customer request payload
