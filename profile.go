@@ -288,6 +288,7 @@ type UserProfileRepository interface {
 	UpdatePermissions(ctx context.Context, id string, perms []PermissionType) error
 	UpdateBioData(ctx context.Context, id string, data BioData) error
 	UpdateAddresses(ctx context.Context, id string, address Address, addressType AddressType) error
+	UpdateAppVersion(ctx context.Context, id string, appVersion string, flavour Flavour) error
 }
 
 // UserProfile serializes the profile of the logged in user.
@@ -354,6 +355,12 @@ type UserProfile struct {
 
 	// this is the profile ID of the logged in user creating this user.
 	CreatedByID *string `json:"cratedByID" firestore:"createdByID"`
+
+	// this is the version of the app that the user is currently using : CONSUMER
+	ConsumerAppVersion *string `json:"consumerAppVersion,omitempty" firestore:"consumerAppVersion"`
+
+	// this is the version of the app that the user is currently using : PRO
+	PROAppVersion *string `json:"proAppVersion,omitempty" firestore:"proAppVersion"`
 }
 
 // UserInfo is a collection of standard profile information for a user.
