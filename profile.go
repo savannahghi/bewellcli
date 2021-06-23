@@ -29,6 +29,11 @@ const (
 	// whether an admin can view and process(approve/reject) kyc requests
 	PermissionTypeProcessKYC PermissionType = "PROCESS_KYC"
 
+	// agent management permissions
+	PermissionTypeRegisterAgent  PermissionType = "REGISTER_AGENT"
+	PermissionTypeSuspendAgent   PermissionType = "SUSPEND_AGENT"
+	PermissionTypeUnsuspendAgent PermissionType = "UNSUSPEND_AGENT"
+
 	// partner management permissions
 	PermissionTypeCreatePartner PermissionType = "CREATE_PARTNER"
 	PermissionTypeUpdatePartner PermissionType = "UPDATE_PARTNER"
@@ -74,6 +79,9 @@ var DefaultAdminPermissions []PermissionType = []PermissionType{
 //DefaultEmployeePermissions generic permissions for field agents
 // These permissions should be given to SIL field agents
 var DefaultEmployeePermissions []PermissionType = []PermissionType{
+	PermissionTypeRegisterAgent,
+	PermissionTypeSuspendAgent,
+	PermissionTypeUnsuspendAgent,
 	PermissionTypeCreateConsumer,
 	PermissionTypeUpdateConsumer,
 	PermissionTypeDeleteConsumer,
@@ -382,6 +390,16 @@ type UserInfo struct {
 
 // IsEntity marks a profile as a GraphQL entity
 func (u UserProfile) IsEntity() {}
+
+// HasPermission checks if user has specific permission
+func (u UserProfile) HasPermission(perm PermissionType) bool {
+	for _, p := range u.Permissions {
+		if p == perm {
+			return true
+		}
+	}
+	return false
+}
 
 // UserCommunicationsSetting hold information about the user communication's channels.
 // if a channel is true, we will be able to send them marketing or promotional messages

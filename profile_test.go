@@ -46,8 +46,46 @@ func TestCover_IsEntity(t *testing.T) {
 	}
 }
 
+func TestCover_HasPermission(t *testing.T) {
+	user := base.UserProfile{
+		Permissions: base.DefaultEmployeePermissions,
+	}
+	user2 := base.UserProfile{
+		Permissions: base.DefaultAgentPermissions,
+	}
+	tests := []struct {
+		name string
+		user base.UserProfile
+		perm base.PermissionType
+		want bool
+	}{
+		{
+			name: "valid: user has permission",
+			user: user,
+			perm: base.PermissionTypeRegisterAgent,
+			want: true,
+		},
+		{
+			name: "valid: user do no have permission",
+			user: user2,
+			perm: base.PermissionTypeRegisterAgent,
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := tt.user.HasPermission(tt.perm); got != tt.want {
+				t.Errorf("UserProfile.HasPermission() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func TestRoleType_Permissions(t *testing.T) {
 	employeePermissions := []base.PermissionType{
+		base.PermissionTypeRegisterAgent,
+		base.PermissionTypeSuspendAgent,
+		base.PermissionTypeUnsuspendAgent,
 		base.PermissionTypeCreateConsumer,
 		base.PermissionTypeUpdateConsumer,
 		base.PermissionTypeDeleteConsumer,
