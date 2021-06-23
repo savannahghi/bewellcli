@@ -289,6 +289,7 @@ type UserProfileRepository interface {
 	UpdateBioData(ctx context.Context, id string, data BioData) error
 	UpdateAddresses(ctx context.Context, id string, address Address, addressType AddressType) error
 	UpdateAppVersion(ctx context.Context, id string, appVersion string, flavour Flavour) error
+	UpdateRole(ctx context.Context, id string, role RoleType) error
 }
 
 // UserProfile serializes the profile of the logged in user.
