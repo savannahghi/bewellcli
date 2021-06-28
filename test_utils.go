@@ -139,11 +139,14 @@ func VerifyTestPhoneNumber(
 	phone string,
 	onboardingClient *InterServiceClient,
 ) (string, error) {
+	ctx := context.Background()
+
 	verifyPhonePayload := map[string]interface{}{
 		"phoneNumber": phone,
 	}
 
 	resp, err := onboardingClient.MakeRequest(
+		ctx,
 		http.MethodPost,
 		verifyPhone,
 		verifyPhonePayload,
@@ -180,6 +183,8 @@ func LoginTestPhoneUser(
 	flavour Flavour,
 	onboardingClient *InterServiceClient,
 ) (*UserResponse, error) {
+	ctx := context.Background()
+
 	loginPayload := map[string]interface{}{
 		"phoneNumber": phone,
 		"pin":         PIN,
@@ -187,6 +192,7 @@ func LoginTestPhoneUser(
 	}
 
 	resp, err := onboardingClient.MakeRequest(
+		ctx,
 		http.MethodPost,
 		loginByPhone,
 		loginPayload,
@@ -222,11 +228,14 @@ func AddAdminPermissions(
 	onboardingClient *InterServiceClient,
 	phone string,
 ) error {
+	ctx := context.Background()
+
 	phonePayload := map[string]interface{}{
 		"phoneNumber": phone,
 	}
 
 	resp, err := onboardingClient.MakeRequest(
+		ctx,
 		http.MethodPost,
 		addAdmin,
 		phonePayload,
@@ -254,6 +263,8 @@ func UpdateBioData(
 	onboardingClient *InterServiceClient,
 	UID string,
 ) error {
+	ctx := context.Background()
+
 	bioDataPayload := map[string]interface{}{
 		"uid":         UID,
 		"firstName":   "Dumbledore 'the'",
@@ -263,6 +274,7 @@ func UpdateBioData(
 	}
 
 	resp, err := onboardingClient.MakeRequest(
+		ctx,
 		http.MethodPost,
 		updateBioData,
 		bioDataPayload,
@@ -288,6 +300,8 @@ func UpdateBioData(
 // authenticated user response
 // For documentation and test purposes only
 func CreateOrLoginTestPhoneNumberUser(t *testing.T, onboardingClient *InterServiceClient) (*UserResponse, error) {
+	ctx := context.Background()
+
 	phone := TestUserPhoneNumber
 	PIN := TestUserPin
 	flavour := FlavourConsumer
@@ -341,6 +355,7 @@ func CreateOrLoginTestPhoneNumberUser(t *testing.T, onboardingClient *InterServi
 	}
 
 	resp, err := onboardingClient.MakeRequest(
+		ctx,
 		http.MethodPost,
 		createUserByPhone,
 		createUserPayload,
@@ -414,8 +429,9 @@ func GetDefaultHeaders(t *testing.T, rootDomain string, serviceName string) map[
 
 // GetInterserviceBearerTokenHeader returns a valid isc bearer token header
 func GetInterserviceBearerTokenHeader(t *testing.T, rootDomain string, serviceName string) string {
+	ctx := context.Background()
 	isc := GetInterserviceClient(t, rootDomain, serviceName)
-	authToken, err := isc.CreateAuthToken()
+	authToken, err := isc.CreateAuthToken(ctx)
 	assert.Nil(t, err)
 	assert.NotZero(t, authToken)
 	bearerHeader := fmt.Sprintf("Bearer %s", authToken)
@@ -460,6 +476,8 @@ func RemoveTestPhoneNumberUser(
 	t *testing.T,
 	onboardingClient *InterServiceClient,
 ) error {
+	ctx := context.Background()
+
 	if onboardingClient == nil {
 		return fmt.Errorf("nil ISC client")
 	}
@@ -468,6 +486,7 @@ func RemoveTestPhoneNumberUser(
 		"phoneNumber": TestUserPhoneNumber,
 	}
 	resp, err := onboardingClient.MakeRequest(
+		ctx,
 		http.MethodPost,
 		removeUserByPhone,
 		payload,

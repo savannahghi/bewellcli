@@ -2,6 +2,7 @@ package base_test
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"log"
 	"net/http"
@@ -65,7 +66,7 @@ func TestInterServiceClient_CreateAuthToken(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			c := service
-			got, err := c.CreateAuthToken()
+			got, err := c.CreateAuthToken(context.Background())
 			if (err != nil) != tt.wantErr {
 				t.Errorf("InterServiceClient.CreateAuthToken() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -104,7 +105,7 @@ func TestInterServiceClient_CreateAuthErrTest(t *testing.T) {
 		return
 	}
 
-	token, err := client.CreateAuthToken()
+	token, err := client.CreateAuthToken(context.Background())
 
 	// We expect an error here
 	if err == nil {
@@ -125,6 +126,7 @@ func TestInterServiceClient_CreateAuthErrTest(t *testing.T) {
 }
 func TestInterServiceClient_MakeRequest(t *testing.T) {
 	type args struct {
+		ctx      context.Context
 		name     string
 		endpoint string
 		method   string
@@ -141,6 +143,7 @@ func TestInterServiceClient_MakeRequest(t *testing.T) {
 		{
 			name: "Valid request",
 			args: args{
+				ctx:      context.Background(),
 				name:     "otp",
 				endpoint: "https://example.com",
 				method:   http.MethodPost,
@@ -152,6 +155,7 @@ func TestInterServiceClient_MakeRequest(t *testing.T) {
 		{
 			name: "Invalid request",
 			args: args{
+				ctx:      context.Background(),
 				name:     "otp",
 				endpoint: "https://google.com",
 				method:   http.MethodPost,
@@ -165,7 +169,7 @@ func TestInterServiceClient_MakeRequest(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			c, _ := base.NewInterserviceClient(base.ISCService{Name: tt.args.name, RootDomain: tt.args.endpoint})
 
-			got, err := c.MakeRequest(tt.args.method, tt.args.path, tt.args.body)
+			got, err := c.MakeRequest(tt.args.ctx, tt.args.method, tt.args.path, tt.args.body)
 
 			if err != nil && !tt.wantErr {
 				t.Errorf("InterServiceClient.MakeRequest() error = %v, wantErr %v", err, tt.wantErr)
@@ -190,7 +194,7 @@ func TestHasValidJWTBearerToken(t *testing.T) {
 	service, _ := base.NewInterserviceClient(base.ISCService{Name: "otp", RootDomain: "https://example.com"})
 
 	validTokenRequest := httptest.NewRequest(http.MethodGet, "/", nil)
-	validToken, _ := service.CreateAuthToken()
+	validToken, _ := service.CreateAuthToken(context.Background())
 	validTokenRequest.Header.Set("Authorization", "Bearer "+validToken)
 
 	emptyHeaderRequest := httptest.NewRequest(http.MethodGet, "/", nil)
@@ -254,7 +258,7 @@ func TestInterServiceAuthenticationMiddleware(t *testing.T) {
 	reader := bytes.NewBuffer([]byte("sample"))
 
 	service, _ := base.NewInterserviceClient(base.ISCService{Name: "otp", RootDomain: "https://example.com"})
-	token, _ := service.CreateAuthToken()
+	token, _ := service.CreateAuthToken(context.Background())
 	authHeader := fmt.Sprintf("Bearer %s", token)
 	req := httptest.NewRequest(http.MethodPost, "/", reader)
 	req.Header.Add("Authorization", authHeader)

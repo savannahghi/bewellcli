@@ -2,6 +2,7 @@ package base
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -52,7 +53,7 @@ type Claims struct {
 type InterServiceClient struct {
 	Name              string
 	RequestRootDomain string
-	httpClient        *http.Client
+	httpClient        http.Client
 }
 
 // NewInterserviceClient initializes a new interservice client
@@ -60,7 +61,7 @@ func NewInterserviceClient(s ISCService) (*InterServiceClient, error) {
 	return &InterServiceClient{
 		Name:              s.Name,
 		RequestRootDomain: s.RootDomain,
-		httpClient: &http.Client{
+		httpClient: http.Client{
 			Transport: otelhttp.NewTransport(http.DefaultTransport),
 			Timeout:   time.Duration(1 * time.Minute),
 		},
@@ -68,7 +69,7 @@ func NewInterserviceClient(s ISCService) (*InterServiceClient, error) {
 }
 
 // CreateAuthToken returns a signed JWT for use in authentication.
-func (c InterServiceClient) CreateAuthToken() (string, error) {
+func (c InterServiceClient) CreateAuthToken(ctx context.Context) (string, error) {
 	var expireMinutes int
 	expireMinutesStr, err := GetEnvVar(ISCExpireEnvVarName)
 	if err != nil {
@@ -101,11 +102,11 @@ func (c InterServiceClient) generateRequestURL(path string) string {
 }
 
 // MakeRequest performs an inter service http request and returns a response
-func (c InterServiceClient) MakeRequest(method string, path string, body interface{}) (*http.Response, error) {
+func (c InterServiceClient) MakeRequest(ctx context.Context, method string, path string, body interface{}) (*http.Response, error) {
 
 	url := c.generateRequestURL(path)
 
-	token, tknErr := c.CreateAuthToken()
+	token, tknErr := c.CreateAuthToken(ctx)
 	if tknErr != nil {
 		return nil, tknErr
 	}
@@ -116,7 +117,7 @@ func (c InterServiceClient) MakeRequest(method string, path string, body interfa
 	}
 
 	payload := bytes.NewBuffer(encoded)
-	req, reqErr := http.NewRequest(method, url, payload)
+	req, reqErr := http.NewRequestWithContext(ctx, method, url, payload)
 	if reqErr != nil {
 		return nil, reqErr
 	}
