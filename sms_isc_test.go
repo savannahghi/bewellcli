@@ -114,7 +114,7 @@ func TestSendSMS(t *testing.T) {
 func TestVerifyOTP(t *testing.T) {
 	client, _ := base.NewInterserviceClient(base.ISCService{
 		Name:       "otp",
-		RootDomain: "https://otp-staging.healthcloud.co.ke",
+		RootDomain: "https://engagement-staging.healthcloud.co.ke",
 	})
 	// generate the OTP first to be used for a happy case
 	OTPCode, err := base.SendOTPHelper(base.TestUserPhoneNumber, client)

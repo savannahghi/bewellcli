@@ -15,6 +15,7 @@ import (
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
+	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
 	"gopkg.in/yaml.v2"
 )
 
@@ -60,7 +61,8 @@ func NewInterserviceClient(s ISCService) (*InterServiceClient, error) {
 		Name:              s.Name,
 		RequestRootDomain: s.RootDomain,
 		httpClient: &http.Client{
-			Timeout: time.Duration(1 * time.Minute),
+			Transport: otelhttp.NewTransport(http.DefaultTransport),
+			Timeout:   time.Duration(1 * time.Minute),
 		},
 	}, nil
 }

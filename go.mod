@@ -35,6 +35,7 @@ require (
 	github.com/xeipuuv/gojsonpointer v0.0.0-20190905194746-02993c407bfb // indirect
 	github.com/xeipuuv/gojsonschema v1.2.0
 	go.opencensus.io v0.23.0
+	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.21.0
 	golang.org/x/mod v0.4.2 // indirect
 	golang.org/x/net v0.0.0-20210405180319-a5a99cb37ef4 // indirect
 	golang.org/x/oauth2 v0.0.0-20210402161424-2e8d93401602
