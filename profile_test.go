@@ -46,7 +46,7 @@ func TestCover_IsEntity(t *testing.T) {
 	}
 }
 
-func TestCover_HasPermission(t *testing.T) {
+func TestUserProfile_HasPermission(t *testing.T) {
 	user := base.UserProfile{
 		Permissions: base.DefaultEmployeePermissions,
 	}

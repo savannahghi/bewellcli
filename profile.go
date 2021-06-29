@@ -340,6 +340,9 @@ type UserProfile struct {
 	// what the user is allowed to do. Only valid for admins
 	Permissions []PermissionType `json:"permissions,omitempty" firestore:"permissions"`
 
+	// favorite navactions are titles of the navactions that the user has bookmarked
+	FavNavActions []string `json:"favNavActions,omitempty" firestore:"favNavActions"`
+
 	// we determine if a user is "live" by examining fields on their profile
 	TermsAccepted bool `json:"terms_accepted,omitempty" firestore:"termsAccepted"`
 
