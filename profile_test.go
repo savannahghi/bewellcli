@@ -81,6 +81,50 @@ func TestUserProfile_HasPermission(t *testing.T) {
 	}
 }
 
+func TestUserProfile_HasFavNavAction(t *testing.T) {
+	user := base.UserProfile{
+		FavNavActions: []string{"Home", "Test"},
+	}
+	user2 := base.UserProfile{
+		FavNavActions: []string{},
+	}
+	user3 := base.UserProfile{
+		FavNavActions: []string{"Home", "Test"},
+	}
+	tests := []struct {
+		name  string
+		user  base.UserProfile
+		title string
+		want  bool
+	}{
+		{
+			name:  "valid: user has bookmarked navaction",
+			user:  user,
+			title: "Home",
+			want:  true,
+		},
+		{
+			name:  "valid: user has no fav navactions",
+			user:  user2,
+			title: "Home",
+			want:  false,
+		},
+		{
+			name:  "valid: user has not bookmarked navactions",
+			user:  user3,
+			title: "Home Test",
+			want:  false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := tt.user.HasFavNavAction(tt.title); got != tt.want {
+				t.Errorf("UserProfile.HasPermission() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func TestRoleType_Permissions(t *testing.T) {
 	employeePermissions := []base.PermissionType{
 		base.PermissionTypeRegisterAgent,

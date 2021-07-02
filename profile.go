@@ -404,6 +404,20 @@ func (u UserProfile) HasPermission(perm PermissionType) bool {
 	return false
 }
 
+// HasFavNavAction checks if user has book marked the provided navaction
+func (u UserProfile) HasFavNavAction(title string) bool {
+	if len(u.FavNavActions) == 0 {
+		return false
+	}
+
+	for _, t := range u.FavNavActions {
+		if t == title {
+			return true
+		}
+	}
+	return false
+}
+
 // UserCommunicationsSetting hold information about the user communication's channels.
 // if a channel is true, we will be able to send them marketing or promotional messages
 type UserCommunicationsSetting struct {
