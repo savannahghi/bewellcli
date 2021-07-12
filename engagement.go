@@ -423,6 +423,9 @@ type Link struct {
 	Thumbnail string `json:"thumbnail" firestore:"thumbnail"`
 }
 
+// IsEntity marks this struct as a GraphQL entity
+func (l Link) IsEntity() {}
+
 func (l *Link) validateLinkType() error {
 	if !govalidator.IsURL(l.URL) {
 		return fmt.Errorf("%s is not a valid URL", l.URL)
