@@ -1,3 +1,7 @@
+[![Maintained](https://img.shields.io/badge/Maintained-Actively-informational.svg?style=for-the-badge)](https://shields.io/)
+![Linting and Tests](https://github.com/savannahghi/bewellcli/actions/workflows/ci.yml/badge.svg)
+[![Coverage Status](https://coveralls.io/repos/github/savannahghi/bewellcli/badge.svg?branch=main)](https://coveralls.io/github/savannahghi/bewellcli?branch=main)
+
 # Bewell Command Line Application
 
 ## Installing the Command
