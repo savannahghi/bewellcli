@@ -1,4 +1,4 @@
-package usecases
+package usecases_test
 
 import (
 	"context"
@@ -8,6 +8,7 @@ import (
 	"testing"
 
 	"github.com/savannahghi/bewellcli/application/dto"
+	"github.com/savannahghi/bewellcli/usecases"
 )
 
 func TestMain(m *testing.M) {
@@ -20,7 +21,7 @@ func TestMain(m *testing.M) {
 }
 
 func Test_validateSchema(t *testing.T) {
-	s, err := NewSchemaRegistryImpl()
+	s, err := usecases.NewSchemaRegistryImpl()
 	if err != nil {
 		t.Errorf("cannot initialize schema registry implementation")
 		return
@@ -98,7 +99,7 @@ func Test_validateSchema(t *testing.T) {
 }
 
 func Test_pushSchema(t *testing.T) {
-	s, err := NewSchemaRegistryImpl()
+	s, err := usecases.NewSchemaRegistryImpl()
 	if err != nil {
 		t.Errorf("cannot initialize schema registry implementation")
 		return
