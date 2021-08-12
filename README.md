@@ -1,6 +1,6 @@
-[![Maintained](https://img.shields.io/badge/Maintained-Actively-informational.svg?style=for-the-badge)](https://shields.io/)
-![Linting and Tests](https://github.com/savannahghi/bewellcli/actions/workflows/ci.yml/badge.svg)
-[![Coverage Status](https://coveralls.io/repos/github/savannahghi/bewellcli/badge.svg?branch=main)](https://coveralls.io/github/savannahghi/bewellcli?branch=main)
+[![Maintained](https://img.shields.io/badge/Maintained-Actively-informational.svg?style=for-the-badge)](https://shields.io/) 
+
+[![MIT license](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)  ![Linting and Tests](https://github.com/savannahghi/bewellcli/actions/workflows/ci.yml/badge.svg)  [![Coverage Status](https://coveralls.io/repos/github/savannahghi/bewellcli/badge.svg?branch=master)](https://coveralls.io/github/savannahghi/bewellcli?branch=master)
 
 # Bewell Command Line Application
 
